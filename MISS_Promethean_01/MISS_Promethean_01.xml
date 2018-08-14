@@ -1,0 +1,114 @@
+<mission_data version="0.1" background_id_arme="" playerShipNames_arme="TSN Horizon">
+  <mission_description>A simple scripted mission for crews made of new players.</mission_description>
+  <start>
+    <set_skybox_index index="22" />
+    <create count="30" type="nebulas" startX="88169.0" startY="0.0" startZ="44203.0" endX="88169.0" endY="0.0" endZ="44203.0" randomRange="11324" />
+    <create count="40" type="asteroids" startX="92535.0" startY="0.0" startZ="34416.0" endX="77027.0" endY="0.0" endZ="54140.0" randomRange="3433" />
+    <create count="20" type="nebulas" startX="50979.0" startY="0.0" startZ="85457.0" endX="31406.0" endY="0.0" endZ="75671.0" randomRange="1683" />
+    <create count="20" type="asteroids" startX="51883.0" startY="0.0" startZ="85307.0" endX="45408.0" endY="0.0" endZ="83048.0" randomRange="1763" />
+    <create count="20" type="nebulas" startX="52033.0" startY="0.0" startZ="8971.0" endX="57002.0" endY="0.0" endZ="19811.0" randomRange="3366" />
+    <create count="20" type="asteroids" startX="77841.0" startY="0.0" startZ="51929.0" endX="65529.0" endY="0.0" endZ="62955.0" randomRange="1810" />
+    <create count="10" type="nebulas" startX="94380.0" startY="0.0" startZ="38882.0" endX="81149.0" endY="0.0" endZ="51745.0" randomRange="2095" />
+    <set_variable name="MISSION_STAGE" value="0.0" />
+    <set_timer name="TIMER_COMMAND_GREETINGS" seconds="60" />
+  </start>
+  <folder_arme name="Stages" id_arme="1bc5680f-d3ec-4e8b-8510-4c6c3ceabca9" expanded_arme="" />
+  <folder_arme name="00" id_arme="432838e5-c19b-4d92-90c3-777b50aea2cd" parent_id_arme="1bc5680f-d3ec-4e8b-8510-4c6c3ceabca9" expanded_arme="" />
+  <event name="Populate Sector" id_arme="add1c54f-6d77-4bd7-bdb0-cd01b21c12b5" parent_id_arme="432838e5-c19b-4d92-90c3-777b50aea2cd">
+    <if_variable name="MISSION_STAGE" comparator="EQUALS" value="0.0" />
+    <if_variable name="IS_SECTOR_POPULATED" comparator="NOT" value="1.0" />
+    <set_variable name="IS_SECTOR_POPULATED" value="1.0" />
+    <create count="40" type="mines" startAngle="280" endAngle="220" startX="31406.0" startY="0.0" startZ="26286.0" radius="17579" />
+    <create count="50" type="mines" startAngle="110" endAngle="40" startX="31406.0" startY="0.0" startZ="26286.0" radius="17579" />
+    <create count="40" type="mines" startAngle="10" endAngle="-50" startX="31406.0" startY="0.0" startZ="26286.0" radius="17579" />
+    <create count="60" type="mines" startAngle="190" endAngle="110" startX="31406.0" startY="0.0" startZ="26286.0" radius="17579" />
+    <create type="station" x="40267.0" y="0.0" z="29806.0" angle="0" name="DS-26" hullID="1000" />
+    <create type="station" x="33584.0" y="0.0" z="17893.0" angle="0" name="DS-81" hullID="1000" />
+    <create type="neutral" x="26738.0" y="0.0" z="34265.0" angle="0" name="SY-61" hullID="1053" />
+    <create type="neutral" x="20218.0" y="0.0" z="25447.0" angle="0" name="SY-55" hullID="1053" />
+    <create type="neutral" x="23953.0" y="0.0" z="30225.0" angle="0" name="SY-170" hullID="1053" />
+    <create type="neutral" x="46161.0" y="0.0" z="19510.0" angle="0" name="WP-72" hullID="1052" />
+    <create type="neutral" x="24179.0" y="0.0" z="11681.0" angle="0" name="WP-98" hullID="1052" />
+    <create type="neutral" x="38378.0" y="0.0" z="41428.0" angle="0" name="WP-44" hullID="1052" />
+    <create type="station" x="30388.0" y="0.0" z="27191.0" angle="0" name="Promethean Command" hullID="1002" />
+    <clear_ai name="SY-55" />
+    <clear_ai name="SY-61" />
+    <clear_ai name="SY-170" />
+    <add_ai type="DIR_THROTTLE" value1="0" value2="0.0" name="SY-55" />
+    <add_ai type="DIR_THROTTLE" value1="0" value2="0.0" name="SY-61" />
+    <add_ai type="DIR_THROTTLE" value1="0" value2="0.0" name="SY-170" />
+  </event>
+  <event name="Spawn Player" id_arme="fa6bf28b-b07d-4462-9ce8-729feebbc4eb" parent_id_arme="432838e5-c19b-4d92-90c3-777b50aea2cd">
+    <if_variable name="MISSION_STAGE" comparator="EQUALS" value="0.0" />
+    <if_variable name="IS_PLAYER_SPAWNED" comparator="NOT" value="1.0" />
+    <set_variable name="IS_PLAYER_SPAWNED" value="1.0" />
+    <create type="player" x="86734.0" y="0.0" z="16427.0" angle="120" name="TSN Horizon" />
+  </event>
+  <folder_arme name="10" id_arme="22ba54e4-2e55-4189-803c-3901dfba3bc7" parent_id_arme="1bc5680f-d3ec-4e8b-8510-4c6c3ceabca9" expanded_arme="" />
+  <event name="Command Greetings" id_arme="47977d1a-8ef2-4426-982b-dac6ecaf75d6" parent_id_arme="22ba54e4-2e55-4189-803c-3901dfba3bc7">
+    <if_variable name="MISSION_STAGE" comparator="EQUALS" value="0.0" />
+    <if_timer_finished name="TIMER_COMMAND_GREETINGS" />
+    <set_variable name="MISSION_STAGE" value="10.0" />
+    <incoming_comms_text from="Promethean Command" sideValue="2" type="STATION FRIEND">Greetings Horizon and welcome to the Promethean sector.^We are waiting for you at the command station for your next mission.^^Please, pay attention and avoid the minefields: we have already lost 2 ships this month.^^Fly safe, captain.</incoming_comms_text>
+  </event>
+  <folder_arme name="20" id_arme="f0308ed8-3a46-4470-b7cb-9c50058cb1ff" parent_id_arme="1bc5680f-d3ec-4e8b-8510-4c6c3ceabca9" expanded_arme="" />
+  <event name="Docking Message" id_arme="2f953294-6313-4fc2-86e6-e9c234f145fe" parent_id_arme="f0308ed8-3a46-4470-b7cb-9c50058cb1ff">
+    <if_variable name="MISSION_STAGE" comparator="EQUALS" value="10.0" />
+    <if_distance name1="TSN Horizon" name2="Promethean Command" comparator="LESS_EQUAL" value="15000.0" />
+    <set_variable name="MISSION_STAGE" value="20.0" />
+    <incoming_comms_text from="Promethean Command" sideValue="2" type="STATION FRIEND">We have you on our short-range sensors, Horizon.^Please dock to the command station, refuel and rearm; stand-by for further instructions.^^Command out.</incoming_comms_text>
+  </event>
+  <event name="Waiting to refuel" id_arme="12dbc8f5-909b-4ed8-b228-952c1c60a0e2" parent_id_arme="f0308ed8-3a46-4470-b7cb-9c50058cb1ff">
+    <if_variable name="MISSION_STAGE" comparator="EQUALS" value="20.0" />
+    <if_docked player_name="TSN Horizon" name="Promethean Command" />
+    <set_timer name="TIMER_REFUEL_AND_REARM" seconds="120" />
+  </event>
+  <folder_arme name="Ships" id_arme="2821cad7-397c-4986-bd40-e2268181650a" expanded_arme="" />
+  <folder_arme name="TR-385" id_arme="a31656e2-eb5b-40d0-834e-20113447871f" parent_id_arme="2821cad7-397c-4986-bd40-e2268181650a" expanded_arme="" />
+  <event name="TR-385 Init" id_arme="4cd76b44-7b4f-4d1c-8b8a-2609dbd025e9" parent_id_arme="a31656e2-eb5b-40d0-834e-20113447871f">
+    <if_variable name="MISSION_STAGE" comparator="EQUALS" value="0.0" />
+    <if_variable name="IS_SECTOR_POPULATED" comparator="EQUALS" value="1.0" />
+    <if_not_exists name="TR-385" />
+    <set_variable name="TRANSPORT_DESTINATION" value="26.0" />
+    <set_variable name="IS_TRANSPORT_DOCKED" value="0.0" />
+    <create type="neutral" x="41267.0" y="0.0" z="28806.0" angle="20" name="TR-385" hullID="1505" />
+    <clear_ai name="TR-385" />
+    <add_ai type="TARGET_THROTTLE" value1="1.0" targetName="DS-26" value2="1" name="TR-385" />
+  </event>
+  <event name="TR-385 Docking to DS-26" id_arme="d4a20934-8286-4e21-9788-bd2b985c2316" parent_id_arme="a31656e2-eb5b-40d0-834e-20113447871f">
+    <if_exists name="TR-385" />
+    <if_variable name="TRANSPORT_DESTINATION" comparator="EQUALS" value="26.0" />
+    <if_variable name="IS_TRANSPORT_DOCKED" comparator="EQUALS" value="0.0" />
+    <if_distance name1="TR-385" name2="DS-26" comparator="LESS_EQUAL" value="750.0" />
+    <set_variable name="IS_TRANSPORT_DOCKED" value="1.0" />
+    <set_timer name="TIMER_DOCKING" seconds="10" />
+    <clear_ai name="TR-385" />
+  </event>
+  <event name="TR-385 Docking to DS-81" id_arme="39cf5760-0ead-49a7-9d26-03e1946b65c6" parent_id_arme="a31656e2-eb5b-40d0-834e-20113447871f">
+    <if_exists name="TR-385" />
+    <if_variable name="TRANSPORT_DESTINATION" comparator="EQUALS" value="81.0" />
+    <if_variable name="IS_TRANSPORT_DOCKED" comparator="EQUALS" value="0.0" />
+    <if_distance name1="TR-385" name2="DS-81" comparator="LESS_EQUAL" value="750.0" />
+    <set_variable name="IS_TRANSPORT_DOCKED" value="1.0" />
+    <set_timer name="TIMER_DOCKING" seconds="10" />
+    <clear_ai name="TR-385" />
+  </event>
+  <event name="TR-385 Moving from DS-81 to DS-26" id_arme="38cbc43a-5d90-49d2-ada0-83273ab8f82f" parent_id_arme="a31656e2-eb5b-40d0-834e-20113447871f">
+    <if_exists name="TR-385" />
+    <if_variable name="TRANSPORT_DESTINATION" comparator="EQUALS" value="81.0" />
+    <if_variable name="IS_TRANSPORT_DOCKED" comparator="EQUALS" value="1.0" />
+    <if_timer_finished name="TIMER_DOCKING" />
+    <set_variable name="TRANSPORT_DESTINATION" value="26.0" />
+    <set_variable name="IS_TRANSPORT_DOCKED" value="0.0" />
+    <add_ai type="TARGET_THROTTLE" value1="1.0" targetName="DS-26" value2="1" name="TR-385" />
+  </event>
+  <event name="TR-385 Moving from DS-26 to DS-81" id_arme="cbc96d59-9412-47f7-8e7e-0e9d2cc22026" parent_id_arme="a31656e2-eb5b-40d0-834e-20113447871f">
+    <if_exists name="TR-385" />
+    <if_variable name="TRANSPORT_DESTINATION" comparator="EQUALS" value="26.0" />
+    <if_variable name="IS_TRANSPORT_DOCKED" comparator="EQUALS" value="1.0" />
+    <if_timer_finished name="TIMER_DOCKING" />
+    <set_variable name="TRANSPORT_DESTINATION" value="81.0" />
+    <set_variable name="IS_TRANSPORT_DOCKED" value="0.0" />
+    <add_ai type="TARGET_THROTTLE" value1="1.0" targetName="DS-81" value2="1" name="TR-385" />
+  </event>
+</mission_data>
