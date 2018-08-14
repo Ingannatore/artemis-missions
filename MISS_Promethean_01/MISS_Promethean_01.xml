@@ -9,6 +9,7 @@
     <create count="20" type="nebulas" startX="52033.0" startY="0.0" startZ="8971.0" endX="57002.0" endY="0.0" endZ="19811.0" randomRange="3366" />
     <create count="20" type="asteroids" startX="77841.0" startY="0.0" startZ="51929.0" endX="65529.0" endY="0.0" endZ="62955.0" randomRange="1810" />
     <create count="10" type="nebulas" startX="94380.0" startY="0.0" startZ="38882.0" endX="81149.0" endY="0.0" endZ="51745.0" randomRange="2095" />
+    <!---->
     <set_variable name="MISSION_STAGE" value="0.0" />
     <set_variable name="WAITING_FOR_TIMER" value="0.0" />
     <set_timer name="TIMER_COMMAND_GREETINGS" seconds="30" />
@@ -43,6 +44,10 @@
     <if_variable name="IS_PLAYER_SPAWNED" comparator="NOT" value="1.0" />
     <set_variable name="IS_PLAYER_SPAWNED" value="1.0" />
     <create type="player" x="86734.0" y="0.0" z="16427.0" angle="120" name="TSN Horizon" />
+    <set_object_property property="energy" value="400" name="TSN Horizon" />
+    <set_object_property property="countNuke" value="0" name="TSN Horizon" />
+    <set_object_property property="countPro" value="0" name="TSN Horizon" />
+    <set_object_property property="countTag" value="0" name="TSN Horizon" />
   </event>
   <folder_arme name="10 - Welcome" id_arme="22ba54e4-2e55-4189-803c-3901dfba3bc7" parent_id_arme="1bc5680f-d3ec-4e8b-8510-4c6c3ceabca9" expanded_arme="" />
   <event name="Command Greetings" id_arme="47977d1a-8ef2-4426-982b-dac6ecaf75d6" parent_id_arme="22ba54e4-2e55-4189-803c-3901dfba3bc7">
@@ -70,7 +75,7 @@
     <if_variable name="MISSION_STAGE" comparator="EQUALS" value="30.0" />
     <if_timer_finished name="TIMER_REFUEL_AND_REARM" />
     <set_variable name="MISSION_STAGE" value="40.0" />
-    <incoming_comms_text from="Promethean Command" sideValue="2" type="STATION FRIEND">Horizon, our mining team has completed its job near the asteroids field in sub-sector C2.^Your mission is to escort all their ships back to the DS-26 station.^^Reach their position and, by using a short-range COMM message, transmit your security ID to start their withdrawal.</incoming_comms_text>
+    <incoming_comms_text from="Promethean Command" sideValue="2" type="STATION FRIEND">Horizon, our mining team has completed its job near the asteroids field in sub-sector C2.^Your mission is to escort all their ships back to the DS-26 station.^^Reach their position and, by using a short-range COMM message, transmit your security ID to SV-16.</incoming_comms_text>
   </event>
   <event name="Enable Short-Range Comm" id_arme="ffe52cd3-f071-432d-b1a4-e787325b7118" parent_id_arme="636f7fc5-c739-4376-b0b5-e5e0ed5b156f">
     <if_variable name="MISSION_STAGE" comparator="EQUALS" value="40.0" />
@@ -97,15 +102,36 @@
     <if_variable name="MISSION_STAGE" comparator="EQUALS" value="50.0" />
     <if_variable name="MINERS_STAGE" comparator="EQUALS" value="30.0" />
     <set_variable name="MINERS_STAGE" value="40.0" />
-    <incoming_comms_text from="Promethean Command" sideValue="2" type="ALERT STATION FRIEND">Horizon, this is urgent: we have lost contacts with a ship from the mining team, name SV-90.^The origin of its last transmission is the sub-sector E3, inside the nebula.^^Move quickly to investigate but stay vigilant.</incoming_comms_text>
+    <set_timer name="TIMER_MISSING_SHIP_MESSAGE" seconds="20" />
   </event>
-  <folder_arme name="60" id_arme="7634c8a1-5ac2-4b4c-bce4-43e718cd9e0b" parent_id_arme="1bc5680f-d3ec-4e8b-8510-4c6c3ceabca9" expanded_arme="" />
-  <event name="Spawn Wreck" id_arme="04b81e35-509e-4748-97ad-ef853f794546" parent_id_arme="7634c8a1-5ac2-4b4c-bce4-43e718cd9e0b">
+  <event name="Missing Ship Message" id_arme="73d79d7a-e78c-4e86-be93-a4a74b2385e8" parent_id_arme="7ffad7de-643b-4340-9398-1544ca1c77cc">
     <if_variable name="MISSION_STAGE" comparator="EQUALS" value="50.0" />
     <if_variable name="MINERS_STAGE" comparator="EQUALS" value="40.0" />
-    <if_inside_sphere name="TSN Horizon" centerX="41845.0" centerY="0.0" centerZ="82307.0" radius="5000" />
+    <set_variable name="MINERS_STAGE" value="50.0" />
+    <incoming_comms_text from="Promethean Command" sideValue="2" type="ALERT STATION FRIEND">Horizon, this is urgent: we have lost contacts with a ship from another mining team, name SV-90.^The origin of its last transmission is the sub-sector E3, inside the nebula.^^Move quickly to investigate but stay vigilant.</incoming_comms_text>
+  </event>
+  <folder_arme name="60 - Wreck" id_arme="7634c8a1-5ac2-4b4c-bce4-43e718cd9e0b" parent_id_arme="1bc5680f-d3ec-4e8b-8510-4c6c3ceabca9" expanded_arme="" />
+  <event name="Discover the Wreck" id_arme="04b81e35-509e-4748-97ad-ef853f794546" parent_id_arme="7634c8a1-5ac2-4b4c-bce4-43e718cd9e0b">
+    <if_variable name="MISSION_STAGE" comparator="EQUALS" value="50.0" />
+    <if_variable name="MINERS_STAGE" comparator="EQUALS" value="50.0" />
+    <if_not_exists name="SV-90" />
+    <if_inside_sphere name="TSN Horizon" centerX="41845.0" centerY="0.0" centerZ="82307.0" radius="4000" />
     <set_variable name="MISSION_STAGE" value="60.0" />
+    <set_comms_button text="Report to Command about the wreck" sideValue="2" />
     <create type="monster" monsterType="8" age="1" x="41845.0" y="0.0" z="82307.0" angle="0" name="SV-90" />
+  </event>
+  <event name="Report the Wreck" id_arme="2e053557-6c9c-455b-a5b7-b87f19c1dc7f" parent_id_arme="7634c8a1-5ac2-4b4c-bce4-43e718cd9e0b">
+    <if_variable name="MISSION_STAGE" comparator="EQUALS" value="60.0" />
+    <if_comms_button text="Report to Command about the wreck" />
+    <clear_comms_button text="Report to Command about the wreck" sideValue="2" />
+    <set_timer name="TIMER_WRECK_REPORT_ACK" seconds="10" />
+  </event>
+  <folder_arme name="70 - Hostiles" id_arme="d78490e1-fab7-4c78-a50d-c87986d97ea3" parent_id_arme="1bc5680f-d3ec-4e8b-8510-4c6c3ceabca9" expanded_arme="" />
+  <event name="Search Hostiles Message" id_arme="057c4b3e-cba0-4580-a05a-c961fec4915b" parent_id_arme="d78490e1-fab7-4c78-a50d-c87986d97ea3">
+    <if_variable name="MISSION_STAGE" comparator="EQUALS" value="60.0" />
+    <if_timer_finished name="TIMER_WRECK_REPORT_ACK" />
+    <set_variable name="MISSION_STAGE" value="70.0" />
+    <incoming_comms_text from="Promethean Command" sideValue="2" type="ALERT STATION FRIEND">Horizon, we have detected a gravimetric anomaly near your position!^Look out for cloacked enemy ships!^^Patrol the nebula in sub-sector D4 and destroy any hostile presence.</incoming_comms_text>
   </event>
   <folder_arme name="Ships" id_arme="2821cad7-397c-4986-bd40-e2268181650a" expanded_arme="" />
   <folder_arme name="TR-385" id_arme="a31656e2-eb5b-40d0-834e-20113447871f" parent_id_arme="2821cad7-397c-4986-bd40-e2268181650a" expanded_arme="" />
@@ -176,36 +202,39 @@
     <if_comms_button text="Transmit security ID" />
     <set_variable name="MINERS_STAGE" value="10.0" />
     <set_timer name="TIMER_MINERS_ACK" seconds="5" />
-    <add_ai type="TARGET_THROTTLE" value1="25.0" targetName="DS-26" value2="1" name="SV-16" />
-    <add_ai type="TARGET_THROTTLE" value1="25.0" targetName="DS-26" value2="1" name="SV-41" />
-    <add_ai type="TARGET_THROTTLE" value1="25.0" targetName="DS-26" value2="1" name="TR-59" />
   </event>
   <event name="Send Ack" id_arme="17138860-0992-4a1e-ad26-f1cb5d241fc2" parent_id_arme="a8c39e38-fad0-4d4a-8cf0-8b3056508dbb">
     <if_variable name="MINERS_STAGE" comparator="EQUALS" value="10.0" />
     <if_timer_finished name="TIMER_MINERS_ACK" />
     <set_variable name="MINERS_STAGE" value="20.0" />
     <incoming_comms_text from="SV-16" sideValue="2" type="STATUS FRIEND">Horizon, we have received and validated your security ID.^Our withdrawal will start immediately.^^Thank your for your protection.</incoming_comms_text>
+    <add_ai type="TARGET_THROTTLE" value1="10.0" targetName="DS-26" value2="1" name="SV-16" />
+    <add_ai type="TARGET_THROTTLE" value1="10.0" targetName="DS-26" value2="1" name="SV-41" />
+    <add_ai type="TARGET_THROTTLE" value1="10.0" targetName="DS-26" value2="1" name="TR-59" />
   </event>
   <event name="SV-16 Dock to DS-26" id_arme="a01a2e7f-8499-45c0-a659-4717458f0c02" parent_id_arme="a8c39e38-fad0-4d4a-8cf0-8b3056508dbb">
     <if_variable name="MINERS_STAGE" comparator="EQUALS" value="20.0" />
     <if_exists name="SV-16" />
     <if_distance name1="SV-16" name2="DS-26" comparator="LESS_EQUAL" value="750.0" />
-    <destroy name="SV-16" />
+    <clear_ai name="SV-16" />
     <incoming_comms_text from="SV-16" sideValue="2" type="STATUS FRIEND">SV-16 docking to DS-26.^Horizon, thanks for the escort.</incoming_comms_text>
+    <destroy name="SV-16" />
   </event>
   <event name="SV-41 Dock to DS-26" id_arme="34c60db9-ac5a-4ee5-a5c1-edb94d494158" parent_id_arme="a8c39e38-fad0-4d4a-8cf0-8b3056508dbb">
     <if_variable name="MINERS_STAGE" comparator="EQUALS" value="20.0" />
     <if_exists name="SV-41" />
     <if_distance name1="SV-41" name2="DS-26" comparator="LESS_EQUAL" value="750.0" />
-    <destroy name="SV-41" />
+    <clear_ai name="SV-41" />
     <incoming_comms_text from="SV-41" sideValue="2" type="STATUS FRIEND">SV-41 docking to DS-26.^Cheers Horizon, good job.</incoming_comms_text>
+    <destroy name="SV-41" />
   </event>
   <event name="TR-59 Dock to DS-26" id_arme="49d147a4-0aab-4fd9-a659-0ccba4e57509" parent_id_arme="a8c39e38-fad0-4d4a-8cf0-8b3056508dbb">
     <if_variable name="MINERS_STAGE" comparator="EQUALS" value="20.0" />
     <if_exists name="TR-59" />
     <if_distance name1="TR-59" name2="DS-26" comparator="LESS_EQUAL" value="750.0" />
-    <destroy name="TR-59" />
+    <clear_ai name="TR-59" />
     <incoming_comms_text from="TR-59" sideValue="2" type="STATUS FRIEND">TR-59 docking to DS-26.^Thank you and fly safe, Horizon.</incoming_comms_text>
+    <destroy name="TR-59" />
   </event>
   <event name="All Miners Docked" id_arme="5b24f74a-18e8-4463-be1e-14ea48bb057d" parent_id_arme="a8c39e38-fad0-4d4a-8cf0-8b3056508dbb">
     <if_variable name="MINERS_STAGE" comparator="EQUALS" value="20.0" />
@@ -213,5 +242,18 @@
     <if_not_exists name="SV-16" />
     <if_not_exists name="TR-59" />
     <set_variable name="MINERS_STAGE" value="30.0" />
+  </event>
+  <folder_arme name="Enemies" id_arme="84d949d9-4c8c-47c3-b87b-bd2e521eb855" parent_id_arme="2821cad7-397c-4986-bd40-e2268181650a" expanded_arme="" />
+  <event name="Enemies Init" id_arme="f62ecb46-fd84-47aa-9300-c0f6cd40cdbc" parent_id_arme="84d949d9-4c8c-47c3-b87b-bd2e521eb855">
+    <if_variable name="MISSION_STAGE" comparator="EQUALS" value="70.0" />
+    <if_variable name="ARE_ENEMIES_SPAWNED" comparator="NOT" value="1.0" />
+    <if_inside_sphere name="TSN Horizon" centerX="34503.0" centerZ="77066.0" radius="8000" />
+    <set_variable name="ARE_ENEMIES_SPAWNED" value="1.0" />
+    <create type="enemy" x="34503.0" y="0.0" z="77066.0" angle="210" name="EN-1" hullID="15" sideValue="1" fleetnumber="-1" />
+    <create type="enemy" x="33634.0" y="0.0" z="77701.0" angle="190" name="EN-2" hullID="16" sideValue="1" fleetnumber="-1" />
+    <clear_ai name="EN-1" />
+    <clear_ai name="EN-2" />
+    <add_ai type="CHASE_PLAYER" name="EN-1" />
+    <add_ai type="CHASE_PLAYER" name="EN-2" />
   </event>
 </mission_data>
