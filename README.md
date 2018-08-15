@@ -6,9 +6,9 @@ Feedback is always appreciated :)
 
 ## Mission "Miners and Pirates"
 
-**Location:** Promethean Sector
-**Ships:** TSN Horizon
-**Difficulty:** Low
+* **Sector**: Promethean 
+* **Ships**: TSN Horizon
+* **Difficulty**: Low
 
 The asteroids belts in the Promethean sector are rich in raw materials for the TSN.
 
