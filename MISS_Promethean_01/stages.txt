@@ -1,0 +1,40 @@
+STAGE_SECTOR
+* 00: Start
+* 10: Build
+* 20: Populate
+* 30: Configure
+
+STAGE_PLAYER
+* 00: Start
+* 10: Spawn
+* 20: First refuel
+
+STAGE_COMMAND
+* 00: Start
+* 10: Detect player
+* 20: Send welcome message
+* 30: Waiting player first refuel
+* 40: Mission message
+* 50: Waiting missing ship
+* 60: Missing ship message
+* 70: Received wreck report
+* 80: Search hostiles message
+* 90: Sector clear message
+
+STAGE_MINERS
+* 00: Start
+* 10: Spawn
+* 20: Ready for withdrawal
+* 30: Receive security ID, Start ACK timer
+* 40: Send ACK, Move to DS-26
+* 50: All docked
+
+STAGE_WRECK
+* 00: Start
+* 10: Spawn
+
+STAGE_ENEMIES
+* 00: Start
+* 10: Spawn
+* 20: Attack
+* 30: Destroyed
