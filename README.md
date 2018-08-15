@@ -6,11 +6,11 @@ Feedback is always appreciated :)
 
 ## Mission "Miners and Pirates"
 
-> The asteroids belts in the Promethean sector are rich in raw materials for the TSN.
-> Your task is very simple: help the Promethean Command secure the sector from pirates.
-
 * **Sector**: Promethean 
 * **Ships**: TSN Horizon
 * **Difficulty**: Low
+
+> The asteroids belts in the Promethean sector are rich in raw materials for the TSN.
+> Your task is very simple: help the Promethean Command secure the sector from pirates.
 
 A linear mission for crews made of new players; it's heavily guided by COMMS message, without any timer or expiration time.
