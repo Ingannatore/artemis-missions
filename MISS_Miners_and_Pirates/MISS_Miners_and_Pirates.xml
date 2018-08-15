@@ -1,14 +1,17 @@
 <mission_data version="1.0" background_id_arme="" playerShipNames_arme="TSN Horizon">
-  <mission_description>The asteroids belts in the Promethean sector are rich in raw materials for the TSN.^Help the Promethean Command secure the sector from pirates.</mission_description>
+  <mission_description>The asteroids belts in the Promethean sector are rich in raw materials for the TSN. Help the Promethean Command secure the sector from pirates.</mission_description>
   <start>
     <set_skybox_index index="22" />
+    <set_difficulty_level value="4" />
     <set_object_property property="sensorSetting" value="1" />
     <set_variable name="STAGE_SECTOR" value="0.0" />
     <set_variable name="STAGE_PLAYER" value="0.0" />
     <set_variable name="STAGE_COMMAND" value="0.0" />
     <set_variable name="STAGE_MINERS" value="0.0" />
     <set_variable name="STAGE_WRECK" value="0.0" />
-    <set_variable name="STAGE_ENEMIES" value="0.0" />
+    <set_variable name="STAGE_RAIDER" value="0.0" />
+    <set_variable name="STAGE_PIRATES" value="0.0" />
+    <big_message title="Promethean Sector" subtitle1="Stardate 22180901.0820" subtitle2="After a long-range jump, the Horizon has arrived in the sector..." />
   </start>
   <folder_arme name="Sector" id_arme="6502b39b-e646-4df4-9a88-80942421eb19" expanded_arme="" />
   <event name="Sector Build" id_arme="dba7e667-cfe0-451e-9370-32ae2fa0146b" parent_id_arme="6502b39b-e646-4df4-9a88-80942421eb19">
@@ -72,11 +75,15 @@
     <if_variable name="STAGE_PLAYER" comparator="EQUALS" value="0.0" />
     <create type="player" x="86734.0" y="0.0" z="16427.0" angle="120" name="TSN Horizon" />
     <set_object_property property="energy" value="250" name="TSN Horizon" />
+    <set_object_property property="countBea" value="0" name="TSN Horizon" />
+    <set_object_property property="countHoming" value="6" name="TSN Horizon" />
+    <set_object_property property="countMine" value="2" name="TSN Horizon" />
     <set_object_property property="countNuke" value="0" name="TSN Horizon" />
     <set_object_property property="countPro" value="0" name="TSN Horizon" />
+    <set_object_property property="countShk" value="2" name="TSN Horizon" />
     <set_object_property property="countTag" value="0" name="TSN Horizon" />
-    <set_comms_button text="Broadcast SEC-ID" sideValue="2" />
-    <set_comms_button text="Send report to Command" sideValue="2" />
+    <set_comms_button text="Broadcast SEC-ID" />
+    <set_comms_button text="Send report to Command" />
     <set_variable name="STAGE_PLAYER" value="10.0" />
   </event>
   <event name="Player First Refuel" id_arme="97ef01c7-d9cd-4107-8384-8ff7c98eb9a7" parent_id_arme="435e74e9-91ee-4356-8ea3-b4be5ca5e645">
@@ -113,14 +120,14 @@
   <event name="Command Wait Missing Ship" id_arme="44f03a76-ae25-4f6e-9a63-1f0d6e4bb6aa" parent_id_arme="fb8aede7-62ef-4b00-b398-83586a60dd47">
     <if_variable name="STAGE_COMMAND" comparator="EQUALS" value="40.0" />
     <if_variable name="STAGE_MINERS" comparator="EQUALS" value="50.0" />
-    <destroy name="SV-90" />
     <set_timer name="TIMER_MISSING_SHIP_MESSAGE" seconds="30" />
     <set_variable name="STAGE_COMMAND" value="50.0" />
   </event>
   <event name="Command Missing Ship Message" id_arme="73d79d7a-e78c-4e86-be93-a4a74b2385e8" parent_id_arme="fb8aede7-62ef-4b00-b398-83586a60dd47">
     <if_variable name="STAGE_COMMAND" comparator="EQUALS" value="50.0" />
     <if_timer_finished name="TIMER_MISSING_SHIP_MESSAGE" />
-    <incoming_comms_text from="Promethean Command" sideValue="2" type="ALERT STATION FRIEND">Horizon, we have lost contacts with a ship from another mining team, name SV-90.^The origin of its last transmission is the sub-sector E3, inside the nebula.^Move quickly to investigate but stay vigilant.</incoming_comms_text>
+    <destroy name="SV-90" />
+    <incoming_comms_text from="Promethean Command" sideValue="2" type="ALERT STATION FRIEND">Horizon, we have lost contacts with SV-90, a science vessel.^Its last transmission came from the nebula of sub-sector E3.^Move quickly to investigate and report as soon as possible.</incoming_comms_text>
     <set_variable name="STAGE_COMMAND" value="60.0" />
   </event>
   <event name="Command Receive Wreck Report" id_arme="8f6af0d6-9dc7-45db-8e50-8a51dbc837ce" parent_id_arme="fb8aede7-62ef-4b00-b398-83586a60dd47">
@@ -134,12 +141,12 @@
   <event name="Command Search Hostiles Message" id_arme="057c4b3e-cba0-4580-a05a-c961fec4915b" parent_id_arme="fb8aede7-62ef-4b00-b398-83586a60dd47">
     <if_variable name="STAGE_COMMAND" comparator="EQUALS" value="70.0" />
     <if_timer_finished name="TIMER_WRECK_REPORT_ACK" />
-    <incoming_comms_text from="Promethean Command" sideValue="2" type="ALERT STATION FRIEND">Horizon, we have detected two gravimetric anomalies in sub-sector D4.^Patrol the nebula and destroy any hostile presence.</incoming_comms_text>
+    <incoming_comms_text from="Promethean Command" sideValue="2" type="ALERT STATION FRIEND">Horizon, we have detected a gravimetric anomaly in sub-sector D4.^Patrol the nebula and destroy any hostile presence.</incoming_comms_text>
     <set_variable name="STAGE_COMMAND" value="80.0" />
   </event>
   <event name="Command Sector Clear Message" id_arme="859112a1-3576-4d9e-a5f6-75ca9d885710" parent_id_arme="fb8aede7-62ef-4b00-b398-83586a60dd47">
     <if_variable name="STAGE_COMMAND" comparator="EQUALS" value="80.0" />
-    <if_variable name="STAGE_ENEMIES" comparator="EQUALS" value="30.0" />
+    <if_variable name="STAGE_PIRATES" comparator="EQUALS" value="30.0" />
     <incoming_comms_text from="Promethean Command" sideValue="2" type="STATION FRIEND">Horizon, the sector is clear, good Job.^We are waiting for you to the command station.</incoming_comms_text>
     <set_variable name="STAGE_COMMAND" value="90.0" />
   </event>
@@ -219,46 +226,63 @@
     <if_variable name="STAGE_WRECK" comparator="EQUALS" value="0.0" />
     <if_variable name="STAGE_COMMAND" comparator="EQUALS" value="60.0" />
     <create type="genericMesh" x="45344.0" y="-10.0" z="84617.0" angle="67" name="SV-90" meshFileName="dat\derelict.dxs" textureFileName="dat\derelict_diffuse.png" colorRed="1.0" colorGreen="0.0" colorBlue="1.0" />
-    <set_ship_text name="SV-90" desc="The last known position of the missing science vessel." scan_desc="This is an inanimate wreck of a science vessel: no enery or life signs on board." />
+    <set_ship_text name="SV-90" desc="The last known position of the missing science vessel." scan_desc="This is an inanimate wreck of a science vessel: no energy or life signs on board." />
     <set_variable name="STAGE_WRECK" value="10.0" />
   </event>
-  <folder_arme name="Enemies" id_arme="84d949d9-4c8c-47c3-b87b-bd2e521eb855" expanded_arme="" />
-  <event name="Enemies Spawn" id_arme="f62ecb46-fd84-47aa-9300-c0f6cd40cdbc" parent_id_arme="84d949d9-4c8c-47c3-b87b-bd2e521eb855">
-    <if_variable name="STAGE_ENEMIES" comparator="EQUALS" value="0.0" />
+  <folder_arme name="Raider" id_arme="2f2a04e9-10e2-46b5-a0e9-b750658fad57" expanded_arme="" />
+  <event name="Raider Spawn" id_arme="cf55d1be-3a34-43d0-a817-4eded1e8aeb0" parent_id_arme="2f2a04e9-10e2-46b5-a0e9-b750658fad57">
+    <if_variable name="STAGE_RAIDER" comparator="EQUALS" value="0.0" />
+    <if_inside_sphere name="TR-59" centerX="50000.0" centerY="0.0" centerZ="50000.0" radius="10000" />
+    <create type="enemy" x="37672.0" y="0.0" z="57397.0" angle="290" name="XX-395" hullID="15" sideValue="1" fleetnumber="-1" />
+    <set_object_property property="surrenderChance" value="0.0" name="XX-395" />
+    <clear_ai name="XX-395" />
+    <add_ai type="CHASE_PLAYER" name="XX-395" />
+    <play_sound_now filename="dat\alarm2.wav" />
+    <set_variable name="STAGE_RAIDER" value="10.0" />
+  </event>
+  <event name="Raider Destroyed" id_arme="3765559d-09a1-47e5-b284-30e866cd5a00" parent_id_arme="2f2a04e9-10e2-46b5-a0e9-b750658fad57">
+    <if_variable name="STAGE_RAIDER" comparator="EQUALS" value="10.0" />
+    <if_not_exists name="XX-395" />
+    <set_variable name="STAGE_RAIDER" value="20.0" />
+  </event>
+  <folder_arme name="Pirates" id_arme="84d949d9-4c8c-47c3-b87b-bd2e521eb855" expanded_arme="" />
+  <event name="Pirates Spawn" id_arme="f62ecb46-fd84-47aa-9300-c0f6cd40cdbc" parent_id_arme="84d949d9-4c8c-47c3-b87b-bd2e521eb855">
+    <if_variable name="STAGE_PIRATES" comparator="EQUALS" value="0.0" />
     <if_variable name="STAGE_COMMAND" comparator="EQUALS" value="80.0" />
-    <if_inside_sphere name="TSN Horizon" centerX="34092.0" centerY="0.0" centerZ="77214.0" radius="7500" />
-    <create type="enemy" x="34503.0" y="0.0" z="77066.0" angle="210" name="EN-1" hullID="15" sideValue="1" fleetnumber="-1" />
-    <create type="enemy" x="32993.0" y="0.0" z="77629.0" angle="190" name="EN-2" hullID="15" sideValue="1" fleetnumber="-1" />
-    <create type="enemy" x="31602.0" y="0.0" z="75985.0" angle="40" name="EN-3" hullID="15" sideValue="1" fleetnumber="-1" />
-    <set_object_property property="surrenderChance" value="0.0" name="EN-1" />
-    <set_object_property property="surrenderChance" value="0.0" name="EN-2" />
-    <set_object_property property="surrenderChance" value="0.0" name="EN-3" />
-    <clear_ai name="EN-1" />
-    <clear_ai name="EN-2" />
-    <clear_ai name="EN-3" />
-    <add_ai type="DIR_THROTTLE" value1="0" value2="0.0" name="EN-1" />
-    <add_ai type="DIR_THROTTLE" value1="0" value2="0.0" name="EN-2" />
-    <add_ai type="DIR_THROTTLE" value1="0" value2="0.0" name="EN-3" />
+    <if_inside_sphere name="TSN Horizon" centerX="33272.0" centerY="0.0" centerZ="76238.0" radius="7500" />
+    <create type="enemy" x="34503.0" y="0.0" z="77066.0" angle="210" name="XX-741" hullID="15" sideValue="1" fleetnumber="-1" />
+    <create type="enemy" x="32993.0" y="0.0" z="77629.0" angle="190" name="XX-102" hullID="15" sideValue="1" fleetnumber="-1" />
+    <create type="enemy" x="31602.0" y="0.0" z="75985.0" angle="40" name="XX-280" hullID="15" sideValue="1" fleetnumber="-1" />
+    <set_object_property property="surrenderChance" value="0.0" name="XX-741" />
+    <set_object_property property="surrenderChance" value="0.0" name="XX-102" />
+    <set_object_property property="surrenderChance" value="0.0" name="XX-280" />
+    <clear_ai name="XX-741" />
+    <clear_ai name="XX-102" />
+    <clear_ai name="XX-280" />
+    <add_ai type="DIR_THROTTLE" value1="0" value2="0.0" name="XX-741" />
+    <add_ai type="DIR_THROTTLE" value1="0" value2="0.0" name="XX-102" />
+    <add_ai type="DIR_THROTTLE" value1="0" value2="0.0" name="XX-280" />
     <set_timer name="TIMER_ENEMY_ATTACK" seconds="8" />
-    <set_variable name="STAGE_ENEMIES" value="10.0" />
+    <play_sound_now filename="dat\alarm2.wav" />
+    <set_variable name="STAGE_PIRATES" value="10.0" />
   </event>
-  <event name="Enemies Attack" id_arme="b588f6db-a4ea-4923-aa4b-def17e31b943" parent_id_arme="84d949d9-4c8c-47c3-b87b-bd2e521eb855">
-    <if_variable name="STAGE_ENEMIES" comparator="EQUALS" value="10.0" />
+  <event name="Pirates Attack" id_arme="b588f6db-a4ea-4923-aa4b-def17e31b943" parent_id_arme="84d949d9-4c8c-47c3-b87b-bd2e521eb855">
+    <if_variable name="STAGE_PIRATES" comparator="EQUALS" value="10.0" />
     <if_timer_finished name="TIMER_ENEMY_ATTACK" />
-    <clear_ai name="EN-1" />
-    <clear_ai name="EN-2" />
-    <clear_ai name="EN-3" />
-    <add_ai type="SPCL_AI" name="EN-1" />
-    <add_ai type="CHASE_PLAYER" name="EN-1" />
-    <add_ai type="CHASE_PLAYER" name="EN-2" />
-    <add_ai type="CHASE_PLAYER" name="EN-3" />
-    <set_variable name="STAGE_ENEMIES" value="20.0" />
+    <clear_ai name="XX-741" />
+    <clear_ai name="XX-102" />
+    <clear_ai name="XX-280" />
+    <add_ai type="SPCL_AI" name="XX-741" />
+    <add_ai type="CHASE_PLAYER" name="XX-741" />
+    <add_ai type="CHASE_PLAYER" name="XX-102" />
+    <add_ai type="CHASE_PLAYER" name="XX-280" />
+    <set_variable name="STAGE_PIRATES" value="20.0" />
   </event>
-  <event name="Enemies Destroyed" id_arme="d77ca1b6-dca0-44c8-aa8b-29adcff39254" parent_id_arme="84d949d9-4c8c-47c3-b87b-bd2e521eb855">
-    <if_variable name="STAGE_ENEMIES" comparator="EQUALS" value="20.0" />
-    <if_not_exists name="EN-1" />
-    <if_not_exists name="EN-2" />
-    <if_not_exists name="EN-3" />
-    <set_variable name="STAGE_ENEMIES" value="30.0" />
+  <event name="Pirates Destroyed" id_arme="d77ca1b6-dca0-44c8-aa8b-29adcff39254" parent_id_arme="84d949d9-4c8c-47c3-b87b-bd2e521eb855">
+    <if_variable name="STAGE_PIRATES" comparator="EQUALS" value="20.0" />
+    <if_not_exists name="XX-741" />
+    <if_not_exists name="XX-102" />
+    <if_not_exists name="XX-280" />
+    <set_variable name="STAGE_PIRATES" value="30.0" />
   </event>
 </mission_data>
