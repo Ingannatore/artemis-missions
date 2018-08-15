@@ -1,5 +1,5 @@
-<mission_data version="0.1" background_id_arme="" playerShipNames_arme="TSN Horizon">
-  <mission_description>A simple scripted mission for crews made of new players.</mission_description>
+<mission_data version="1.0" background_id_arme="" playerShipNames_arme="TSN Horizon">
+  <mission_description>The asteroids belts in the Promethean sector are rich in raw materials for the TSN.^Help the Promethean Command secure the sector from pirates.</mission_description>
   <start>
     <set_skybox_index index="22" />
     <set_object_property property="sensorSetting" value="1" />
