@@ -11,15 +11,14 @@ STAGE_PLAYER
 
 STAGE_COMMAND
 * 00: Start
-* 10: Detect player
-* 20: Send welcome message
-* 30: Waiting player first refuel
-* 40: Mission message
-* 50: Waiting missing ship
-* 60: Missing ship message
-* 70: Received wreck report
-* 80: Search hostiles message
-* 90: Sector clear message
+* 10: Welcome message
+* 20: Docking message
+* 30: Mission message
+* 40: Waiting missing ship
+* 50: Missing ship message
+* 60: Received wreck report
+* 70: Search hostiles message
+* 80: Sector clear message
 
 STAGE_MINERS
 * 00: Start
