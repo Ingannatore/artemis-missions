@@ -11,7 +11,7 @@
     <set_variable name="STAGE_WRECK" value="0.0" />
     <set_variable name="STAGE_RAIDER" value="0.0" />
     <set_variable name="STAGE_PIRATES" value="0.0" />
-    <big_message title="Promethean Sector" subtitle1="Stardate 22180901.0820" subtitle2="After a long-range jump, the Horizon has arrived in the sector..." />
+    <big_message title="TSN Horizon" subtitle1="Promethean Sector" subtitle2="" />
   </start>
   <folder_arme name="Sector" id_arme="6502b39b-e646-4df4-9a88-80942421eb19" expanded_arme="" />
   <event name="Sector Build" id_arme="dba7e667-cfe0-451e-9370-32ae2fa0146b" parent_id_arme="6502b39b-e646-4df4-9a88-80942421eb19">
