@@ -11,7 +11,7 @@
     <set_variable name="STAGE_WRECK" value="0.0" />
     <set_variable name="STAGE_RAIDER" value="0.0" />
     <set_variable name="STAGE_PIRATES" value="0.0" />
-    <big_message title="TSN Horizon" subtitle1="Promethean Sector" subtitle2="" />
+    <big_message title="TSN Horizon" subtitle1="Promethean Sector" />
   </start>
   <folder_arme name="Sector" id_arme="6502b39b-e646-4df4-9a88-80942421eb19" expanded_arme="" />
   <event name="Sector Build" id_arme="dba7e667-cfe0-451e-9370-32ae2fa0146b" parent_id_arme="6502b39b-e646-4df4-9a88-80942421eb19">
@@ -130,13 +130,13 @@
     <if_variable name="STAGE_WRECK" comparator="EQUALS" value="10.0" />
     <if_comms_button text="Report to Command" />
     <if_distance name1="TSN Horizon" name2="SV-90" comparator="LESS_EQUAL" value="7500.0" />
-    <set_timer name="TIMER_WRECK_REPORT_ACK" seconds="8" />
+    <set_timer name="TIMER_WRECK_REPORT_ACK" seconds="4" />
     <set_variable name="STAGE_COMMAND" value="60.0" />
   </event>
   <event name="Command Search Hostiles Message" id_arme="057c4b3e-cba0-4580-a05a-c961fec4915b" parent_id_arme="fb8aede7-62ef-4b00-b398-83586a60dd47">
     <if_variable name="STAGE_COMMAND" comparator="EQUALS" value="60.0" />
     <if_timer_finished name="TIMER_WRECK_REPORT_ACK" />
-    <incoming_comms_text from="Promethean Command" sideValue="2" type="ALERT STATION FRIEND">Horizon, we have detected a gravimetric anomaly in sub-sector D4.^Patrol the nebula and destroy any hostile presence.</incoming_comms_text>
+    <incoming_comms_text from="Promethean Command" sideValue="2" type="ALERT STATION FRIEND">Horizon, we have received your report.^Patrol the nebula, search and destroy any hostile presence.</incoming_comms_text>
     <set_variable name="STAGE_COMMAND" value="70.0" />
   </event>
   <event name="Command Sector Clear Message" id_arme="859112a1-3576-4d9e-a5f6-75ca9d885710" parent_id_arme="fb8aede7-62ef-4b00-b398-83586a60dd47">
