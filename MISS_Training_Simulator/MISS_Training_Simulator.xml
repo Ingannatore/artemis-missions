@@ -1,0 +1,108 @@
+<mission_data version="1.0" background_id_arme="6ef9f262-9724-4c0b-9586-31213cab1608" playerShipNames_arme="Artemis\Intrepid\Aegis\Horatio\Excalibur\Hera\Ceres\Diana">
+  <start id_arme="6ef9f262-9724-4c0b-9586-31213cab1608">
+    <log text="Starting" />
+    <set_skybox_index index="22" />
+    <set_difficulty_level value="4" />
+    <big_message title="Welcome to the TSN Training Simulator" subtitle1="Environment: Promethean Sector" />
+    <set_object_property property="sensorSetting" value="0" />
+    <set_variable name="STAGE_SIMULATION" value="0.0" />
+    <set_variable name="STAGE_SECTOR" value="0.0" />
+    <set_variable name="STAGE_PLAYER" value="0.0" />
+    <set_variable name="STAGE_EXERCISE" value="0.0" />
+    <set_variable name="TRIGGER_TORP" value="0.0" />
+  </start>
+  <folder_arme name="Sector" id_arme="6502b39b-e646-4df4-9a88-80942421eb19" expanded_arme="" />
+  <event name="Sector Build" id_arme="dba7e667-cfe0-451e-9370-32ae2fa0146b" parent_id_arme="6502b39b-e646-4df4-9a88-80942421eb19">
+    <if_variable name="STAGE_SECTOR" comparator="EQUALS" value="0.0" />
+    <log text="Building sector" />
+    <create count="30" type="nebulas" nebType="1" startX="88169.0" startY="0.0" startZ="44203.0" endX="88169.0" endY="0.0" endZ="44203.0" randomRange="11324" />
+    <create count="10" type="nebulas" nebType="1" startX="94380.0" startY="0.0" startZ="38882.0" endX="81149.0" endY="0.0" endZ="51745.0" randomRange="2095" />
+    <create count="20" type="nebulas" nebType="3" startX="50979.0" startY="0.0" startZ="85457.0" endX="31406.0" endY="0.0" endZ="75671.0" randomRange="1683" />
+    <create count="20" type="nebulas" nebType="2" startX="52033.0" startY="0.0" startZ="8971.0" endX="57002.0" endY="0.0" endZ="19811.0" randomRange="3366" />
+    <create count="40" type="asteroids" startX="92535.0" startY="0.0" startZ="34416.0" endX="77027.0" endY="0.0" endZ="54140.0" randomRange="3433" />
+    <create count="20" type="asteroids" startX="51883.0" startY="0.0" startZ="85307.0" endX="45408.0" endY="0.0" endZ="83048.0" randomRange="1763" />
+    <create count="20" type="asteroids" startX="77841.0" startY="0.0" startZ="51929.0" endX="65529.0" endY="0.0" endZ="62955.0" randomRange="1810" />
+    <set_variable name="STAGE_SECTOR" value="10.0" />
+  </event>
+  <folder_arme name="Player" id_arme="753a8a75-7508-46dc-88a2-5b21c8d84840" expanded_arme="" />
+  <event name="Player Spawn" id_arme="fa6bf28b-b07d-4462-9ce8-729feebbc4eb" parent_id_arme="753a8a75-7508-46dc-88a2-5b21c8d84840">
+    <if_variable name="STAGE_SECTOR" comparator="EQUALS" value="10.0" />
+    <if_variable name="STAGE_PLAYER" comparator="EQUALS" value="0.0" />
+    <log text="Spawning player" />
+    <create type="player" x="90000.0" y="0.0" z="10000.0" angle="135" name="TSN Horizon" sideValue="2" />
+    <set_comms_button text="Next Stage" sideValue="2" />
+    <set_variable name="STAGE_PLAYER" value="10.0" />
+    <set_variable name="TRIGGER_TORP" value="1.0" />
+  </event>
+  <folder_arme name="Torpedo" id_arme="f53532cc-eb1b-42e8-86d5-6bf6d9ed60b6" parent_id_arme="753a8a75-7508-46dc-88a2-5b21c8d84840" expanded_arme="" />
+  <event name="Remove All (1)" id_arme="efdc6f29-f0a2-4f42-b3ae-6f0f5031b3d3" parent_id_arme="f53532cc-eb1b-42e8-86d5-6bf6d9ed60b6">
+    <if_variable name="STAGE_PLAYER" comparator="EQUALS" value="10.0" />
+    <if_variable name="TRIGGER_TORP" comparator="EQUALS" value="1.0" />
+    <log text="Removing all torpedoes" />
+    <set_object_property property="countBea" value="0" name="TSN Horizon" />
+    <set_object_property property="countEMP" value="0.0" name="TSN Horizon" />
+    <set_object_property property="countHoming" value="0" name="TSN Horizon" />
+    <set_object_property property="countMine" value="0" name="TSN Horizon" />
+    <set_object_property property="countNuke" value="0" name="TSN Horizon" />
+    <set_object_property property="countShk" value="0" name="TSN Horizon" />
+    <set_object_property property="countTag" value="0" name="TSN Horizon" />
+    <set_object_property property="countPro" value="0" name="TSN Horizon" />
+    <set_variable name="TRIGGER_TORP" value="0.0" />
+  </event>
+  <folder_arme name="1. Waypoints navigation" id_arme="d51c4cbc-ff24-46bd-8e7d-ef59797083eb" expanded_arme="" />
+  <event name="Init" id_arme="cb2356eb-10f0-4845-b85d-a36949636169" parent_id_arme="d51c4cbc-ff24-46bd-8e7d-ef59797083eb">
+    <if_comms_button text="Next Stage" />
+    <if_variable name="STAGE_PLAYER" comparator="EQUALS" value="10.0" />
+    <if_variable name="STAGE_SIMULATION" comparator="EQUALS" value="0.0" />
+    <if_variable name="STAGE_EXERCISE" comparator="EQUALS" value="0.0" />
+    <log text="Init 1st exercise" />
+    <create type="station" x="30000.0" y="0.0" z="30000.0" angle="0" name="Promethean Command" hullID="1002" />
+    <set_object_property property="canBuild" value="0.0" name="Promethean Command" />
+    <set_object_property property="missileStoresBeacon" value="0.0" name="Promethean Command" />
+    <set_object_property property="missileStoresEMP" value="0.0" name="Promethean Command" />
+    <set_object_property property="missileStoresHoming" value="0.0" name="Promethean Command" />
+    <set_object_property property="missileStoresMine" value="0.0" name="Promethean Command" />
+    <set_object_property property="missileStoresNuke" value="0.0" name="Promethean Command" />
+    <set_object_property property="missileStoresProbe" value="0.0" name="Promethean Command" />
+    <set_object_property property="missileStoresPShock" value="0.0" name="Promethean Command" />
+    <set_object_property property="missileStoresTag" value="0.0" name="Promethean Command" />
+    <create type="genericMesh" x="70000.0" y="0.0" z="30000.0" angle="0" name="Waypoint Alfa" meshFileName="dat\signalBeacon.dxs" textureFileName="dat\beacon-texture-1.png" />
+    <create type="genericMesh" x="90000.0" y="0.0" z="90000.0" angle="0" name="Waypoint Beta" meshFileName="dat\signalBeacon.dxs" textureFileName="dat\beacon-texture-1.png" />
+    <create type="genericMesh" x="30000.0" y="0.0" z="70000.0" angle="0" name="Waypoint Gamma" meshFileName="dat\signalBeacon.dxs" textureFileName="dat\beacon-texture-1.png" />
+    <incoming_comms_text from="System" sideValue="2" type="STATUS FRIEND">Starting "Waypoints navigation" simulation</incoming_comms_text>
+    <set_variable name="STAGE_SIMULATION" value="1.0" />
+    <set_variable name="STAGE_EXERCISE" value="1.0" />
+  </event>
+  <event name="Reached Alfa" id_arme="86d4a19b-a768-4c84-bf46-89f658431521" parent_id_arme="d51c4cbc-ff24-46bd-8e7d-ef59797083eb">
+    <if_variable name="STAGE_SIMULATION" comparator="EQUALS" value="1.0" />
+    <if_exists name="Waypoint Alfa" />
+    <if_distance name1="TSN Horizon" name2="Waypoint Alfa" comparator="LESS_EQUAL" value="1000.0" />
+    <destroy name="Waypoint Alfa" />
+    <incoming_comms_text from="System" sideValue="2" type="STATUS FRIEND">Waypoint Alpha reached</incoming_comms_text>
+  </event>
+  <event name="Reached Beta" id_arme="b39c5bd6-0710-498d-be3c-8f62f50e5ba9" parent_id_arme="d51c4cbc-ff24-46bd-8e7d-ef59797083eb">
+    <if_variable name="STAGE_SIMULATION" comparator="EQUALS" value="1.0" />
+    <if_exists name="Waypoint Beta" />
+    <if_distance name1="TSN Horizon" name2="Waypoint Beta" comparator="LESS_EQUAL" value="1000.0" />
+    <destroy name="Waypoint Beta" />
+    <incoming_comms_text from="System" sideValue="2" type="STATUS FRIEND">Waypoint Beta reached</incoming_comms_text>
+  </event>
+  <event name="Reached Gamma" id_arme="bfba8c8e-e7ce-411e-89ba-e4310a9208e6" parent_id_arme="d51c4cbc-ff24-46bd-8e7d-ef59797083eb">
+    <if_variable name="STAGE_SIMULATION" comparator="EQUALS" value="1.0" />
+    <if_exists name="Waypoint Gamma" />
+    <if_distance name1="TSN Horizon" name2="Waypoint Gamma" comparator="LESS_EQUAL" value="1000.0" />
+    <destroy name="Waypoint Gamma" />
+    <incoming_comms_text from="System" sideValue="2" type="STATUS FRIEND">Waypoint Gamma reached</incoming_comms_text>
+  </event>
+  <event name="End" id_arme="3c389812-ca79-4bbc-94b3-9aaa3a056edd" parent_id_arme="d51c4cbc-ff24-46bd-8e7d-ef59797083eb">
+    <if_variable name="STAGE_SIMULATION" comparator="EQUALS" value="1.0" />
+    <if_variable name="STAGE_EXERCISE" comparator="EQUALS" value="1.0" />
+    <if_not_exists name="Waypoint Alfa" />
+    <if_not_exists name="Waypoint Beta" />
+    <if_not_exists name="Waypoint Gamma" />
+    <if_docked player_name="TSN Horizon" name="Promethean Command" />
+    <incoming_comms_text from="System" sideValue="2" type="STATUS FRIEND">Waypoints navigation" simulation completed</incoming_comms_text>
+    <set_variable name="STAGE_SIMULATION" value="2.0" />
+    <set_variable name="STAGE_EXERCISE" value="0.0" />
+  </event>
+</mission_data>

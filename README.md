@@ -14,3 +14,14 @@ Feedback is always appreciated :)
 > Your task is very simple: help the Promethean Command secure the sector from pirates.
 
 A linear mission for crews made of new players; it's heavily guided by COMMS message, without any timer or expiration time.
+
+## Mission "Training Simulator"
+
+* **Sector**: Promethean 
+* **Ships**: TSN Horizon
+* **Difficulty**: Null
+
+> Welcome to the TSN Training Simulator!
+> The easy, affordable and efficient crew training system.
+
+A collection of simple training exercises, covering the very basics of the game.
