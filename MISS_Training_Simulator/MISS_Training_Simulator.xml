@@ -47,6 +47,7 @@
     <create type="player" x="70000.0" y="0.0" z="10000.0" angle="180" name="TSN Horizon" sideValue="2" />
     <set_comms_button text="[Waypoints navigation]" sideValue="2" />
     <set_comms_button text="[Shooting practice]" sideValue="2" />
+    <set_comms_button text="[Damage control]" sideValue="2" />
     <set_variable name="STAGE_PLAYER" value="10.0" />
     <set_variable name="TRIGGER_TORP" value="1.0" />
   </event>
@@ -178,6 +179,39 @@
     <if_not_exists name="EN-3" />
     <if_docked player_name="TSN Horizon" name="Promethean Command" />
     <big_message title="[Shooting practice] simulation completed" />
+    <set_variable name="STAGE_SIMULATION" value="0.0" />
+    <set_variable name="IS_SIMULATION_RUNNING" value="0.0" />
+  </event>
+  <folder_arme name="3. Damage control" id_arme="09cb109d-4cde-4516-8031-0443697e7c70" expanded_arme="" />
+  <event name="Init" id_arme="8adb1df8-807a-46ec-9d0e-6c2b60c046e3" parent_id_arme="09cb109d-4cde-4516-8031-0443697e7c70">
+    <if_comms_button text="[Damage control]" />
+    <if_variable name="STAGE_SIMULATION" comparator="EQUALS" value="0.0" />
+    <if_variable name="IS_SIMULATION_RUNNING" comparator="EQUALS" value="0.0" />
+    <big_message title="Starting [Damage control] simulation" subtitle1="Keep the ship in one piece and dock to the station" />
+    <set_object_property property="positionX" value="90000.0" name="TSN Horizon" />
+    <set_object_property property="positionZ" value="90000.0" name="TSN Horizon" />
+    <set_object_property property="angle" value="3.14" name="TSN Horizon" />
+    <set_player_grid_damage value="0.5" name="TSN Horizon" index="0" systemType="systemFrontShield" countFrom="front" />
+    <set_player_grid_damage value="0.25" name="TSN Horizon" index="0" systemType="systemBeam" countFrom="front" />
+    <set_player_grid_damage value="1.0" name="TSN Horizon" index="0" systemType="systemTurning" countFrom="front" />
+    <set_player_grid_damage value="0.25" name="TSN Horizon" index="0" systemType="systemTorpedo" countFrom="front" />
+    <set_object_property property="systemCurHeatBackShield" value="0.0" name="TSN Horizon" />
+    <set_object_property property="systemCurHeatBeam" value="0.6" name="TSN Horizon" />
+    <set_object_property property="systemCurHeatFrontShield" value="0.8" name="TSN Horizon" />
+    <set_object_property property="systemCurHeatImpulse" value="0.2" name="TSN Horizon" />
+    <set_object_property property="systemCurHeatTactical" value="0.0" name="TSN Horizon" />
+    <set_object_property property="systemCurHeatTorpedo" value="0.4" name="TSN Horizon" />
+    <set_object_property property="systemCurHeatTurning" value="0.2" name="TSN Horizon" />
+    <set_object_property property="systemCurHeatWarp" value="0.0" name="TSN Horizon" />
+    <set_variable name="TRIGGER_TORP" value="1.0" />
+    <set_variable name="STAGE_SIMULATION" value="3.0" />
+    <set_variable name="IS_SIMULATION_RUNNING" value="1.0" />
+  </event>
+  <event name="End" id_arme="13e6cf27-95ba-4c20-bd60-39678908542c" parent_id_arme="09cb109d-4cde-4516-8031-0443697e7c70">
+    <if_variable name="STAGE_SIMULATION" comparator="EQUALS" value="3.0" />
+    <if_variable name="IS_SIMULATION_RUNNING" comparator="EQUALS" value="1.0" />
+    <if_docked player_name="TSN Horizon" name="Promethean Command" />
+    <big_message title="[Damage control] simulation completed" />
     <set_variable name="STAGE_SIMULATION" value="0.0" />
     <set_variable name="IS_SIMULATION_RUNNING" value="0.0" />
   </event>
